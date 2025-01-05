@@ -1,9 +1,10 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('ls-billing')
+        .setName('ls-bill')
         .setDescription('登録されている支払いを表示します'),
     async execute(interaction) {
         const path = `./bills/${interaction.user.id}`;
@@ -19,11 +20,13 @@ module.exports = {
             const data = JSON.parse(fs.readFileSync(`${path}/${file}`));
             billData.push(data);
         }
-
-        let message = '';
-        for (const bill of billData) {
-            message += `- 支払い名: ${bill.name} 金額: ${bill.amount}円 支払い月: ${bill.month}月 支払い間隔: ${bill.interval}月ごと メモ: ${(bill.note ? bill.note : 'なし')}\n`;
+        let embed = new EmbedBuilder()
+            .setTitle('登録されている支払い')
+            .setDescription('登録されている支払いです')
+            .setColor(0x00FF00); // 緑色の16進数コード
+        for (const data of billData) {
+            embed.addFields({ name: data.name, value: `${data.amount}円 ${data.month}月 ${data.interval}ヶ月ごと ${data.note ? data.note : 'メモなし'} ${data.paid ? '支払済み' : '未払い'}` });
         }
-        await interaction.reply(message);
+        await interaction.reply({ embeds: [embed] });
     },
 };
