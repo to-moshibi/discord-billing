@@ -17,7 +17,7 @@ module.exports = {
         for (const file of files) {
             const data = JSON.parse(fs.readFileSync(`${path}/${file}`));
             const option = new StringSelectMenuOptionBuilder()
-                .setLabel(data.name + ' ' + data.amount + '円' + ' ' + data.month + '月' + ' ' + data.interval + 'ヶ月ごと' + ' ' + data.note)
+                .setLabel(data.name + ' ' + data.amount + '円' + ' ' + data.month + '月' + ' ' + data.interval + 'ヶ月ごと' + ' ' + (data.note ? data.note : 'メモなし') + (data.paid ? "支払済み" : "未払い"))
                 .setValue(file);
             options.push(option);
         }
@@ -33,7 +33,7 @@ module.exports = {
             components: [row],
         });
         const collectorFilter = i => i.user.id === interaction.user.id;
-
+        
         try {
             const confirmation = await response.awaitMessageComponent({ filter: collectorFilter, time: 120_000 });
             const data = JSON.parse(fs.readFileSync(`${ path }/${ confirmation.values[0] }`));

@@ -68,9 +68,10 @@ module.exports = {
                     amount: amount,
                     month: month,
                     interval: interval,
-                    note: note
+                    note: note,
+                    paid : false
                 }));
-                await confirmation.update({ content: `定期的な支払いを登録しました\n支払いの月にリマインダーを送信します`, components: [] });
+                await confirmation.update({ content: `定期的な支払いを登録しました\n支払いの月にリマインダーを送信します\n今回分をすでに支払っている場合は、続けて\n/pay-bill\nを実行してください`, components: [] });
             } else if (confirmation.customId === 'cancel') {
                 await confirmation.update({ content: 'Action cancelled', components: [] });
             }
