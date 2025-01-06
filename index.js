@@ -38,9 +38,7 @@ for (const folder of commandFolders) {
 // When the client is ready, run this code (only once)
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-    setInterval(() => {
-        client.guilds.resolve('1279810417400615004')?.channels?.cache?.find?.(ch => ch?.name === '定期支払管理_bot')?.send('メッセージ')
-    }, 5000);
+
 });
 
 client.on(Events.InteractionCreate, async interaction => {

@@ -14,7 +14,7 @@ module.exports = {
                 .setRequired(true))
         .addIntegerOption(option =>
             option.setName('month')
-                .setDescription('支払い月')
+                .setDescription('前回の支払い月')
                 .setRequired(true)
                 .setMinValue(1)
                 .setMaxValue(12))
@@ -22,7 +22,7 @@ module.exports = {
         .addIntegerOption(option =>
             option.setName('interval')
                 .setDescription('支払い間隔(月)')
-                .setRequired(true))
+                .setRequired(true)
                 .setMinValue(1)
                 .setMaxValue(12))
         .addStringOption(option =>
@@ -37,7 +37,7 @@ module.exports = {
         const amount = interaction.options.getInteger('amount');
         const month = interaction.options.getInteger('month');
         const interval = interaction.options.getInteger('interval');
-        const message = `支払い名: ${name}\n金額: ${amount}円\n支払い月: ${month}月\n支払い間隔: ${interval}月ごと\nメモ: ${note}\n\n登録しますか？`;
+        const message = `支払い名: ${name}\n金額: ${amount}円\n支払い月: ${month}月\n支払い間隔: ${interval}か月ごと\n次回支払い: ${(interval+interval)%12}月\nメモ: ${note}\n\n登録しますか？`;
 
         const confirm = new ButtonBuilder()
             .setCustomId('confirm')

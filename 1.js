@@ -14,6 +14,7 @@ socket.on('connect', () => {
                 
                 fs.writeFileSync(`${billsPath}/${bill}/${file}`, JSON.stringify(data));
                 socket.emit('message', { guildId: data.guildId, message: `今月は支払い「${data.name}」 ${data.amount}円の支払いがあります\n前回分は${data.paid?"支払済み":"未納"}でした。\n支払いが完了したら /pay-bill を実行してください` });
+                data.month = (data.month + data.interval) % 12;
                 data.paid = false;
             }
         }
