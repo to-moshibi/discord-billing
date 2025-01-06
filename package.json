@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "discord.js": "^14.17.2"
+    "discord.js": "^14.17.2",
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
   }
 }
