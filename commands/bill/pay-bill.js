@@ -42,7 +42,7 @@ module.exports = {
             }
             data.paid = true;
             fs.writeFileSync(`${ path }/${ confirmation.values[0] }`, JSON.stringify(data));
-            await interaction.editReply({ content: `支払い「${ data.name }」を支払い済みにしました}`, components: [] });
+            await interaction.editReply({ content: `支払い「${ data.name }」を支払い済みにしました`, components: [] });
         } catch (e) {
             console.log(e)
             await interaction.editReply({ content: '2分以内に応答がなかったため、登録をキャンセルしました', components: [] });

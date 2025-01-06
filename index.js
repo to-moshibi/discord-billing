@@ -84,7 +84,6 @@ client.login(token);
 io.sockets.on('connection', function(socket) {
     console.log('connected');
     socket.on('message', function(data) {
-        console.log(data);
         client.guilds.resolve(data.guildId)?.channels?.cache?.find?.(ch => ch?.name === '定期支払管理_bot')?.send(data.message);
     });
 });
